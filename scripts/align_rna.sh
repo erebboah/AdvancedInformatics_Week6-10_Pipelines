@@ -25,8 +25,8 @@ prefix=`head -n $SLURM_ARRAY_TASK_ID  ${file} | tail -n 1`
 
 # alignments
 hisat2 -p 2 -x $ref -1 ${inpath}data/${prefix}_R1.fq.gz -2 ${inpath}data/${prefix}_R2.fq.gz -S ${inpath}mapped/${prefix}.sam
-samtools view -bS ${inpath}mapped/${prefix}.sam > ${inpath}mapped/${prefix}.bam
-samtools sort ${inpath}mapped/${prefix}.bam ${inpath}mapped/${prefix}.sorted.bam
+samtools view -bS -o ${inpath}mapped/${prefix}.bam ${inpath}mapped/${prefix}.sam 
+samtools sort ${inpath}mapped/${prefix}.bam -o ${inpath}mapped/${prefix}.sorted.bam
 samtools index ${inpath}mapped/${prefix}.sorted.bam
-rm ${inpath}mapped/${prefix}.sam
 rm ${inpath}mapped/${prefix}.bam
+rm ${inpath}mapped/${prefix}.sam
