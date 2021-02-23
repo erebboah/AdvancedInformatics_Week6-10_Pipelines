@@ -70,7 +70,7 @@ java -d64 -Xmx128g -jar /opt/apps/picard-tools/1.87/reateSequenceDictionary.jar 
 hisat2-build $ref $ref
 ```
 
-I made "prefix" files to use for the bash scripts with the provided code (and a subsetted prefix file using an R script in the `scripts` folder):
+I made "prefix" files to use for the bash scripts with the provided code from Dr. Long's notes (and a subsetted prefix file using an R script in the `scripts` folder):
 ```
 ls /data/class/ecoevo283/erebboah/DNAseq/data/*1.fq.gz | sed 's/_1.fq.gz//' > ../prefixes.txt
 ls /data/class/ecoevo283/erebboah/ATACseq/data/*R1.fq.gz | sed 's/_R1.fq.gz//' > ../prefixes.txt
