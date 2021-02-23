@@ -15,4 +15,4 @@ The readgroups `bam` file is also indexed with samtools.
 
 `align_rna.sh` aligns RNA-seq using HISAT2, converts `sam` to  `bam`, sorts, and indexes.
 
-The scripts also remove intermediate files such as `sam` and unsorted `bam ` to save space.
+The scripts also remove intermediate files such as `sam` and unsorted `bam` to save space.
