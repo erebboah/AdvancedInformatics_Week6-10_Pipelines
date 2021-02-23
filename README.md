@@ -66,7 +66,7 @@ module load hisat2/2.2.1
 
 bwa index $ref
 samtools faidx  $ref
-java -d64 -Xmx128g -jar /opt/apps/picard-tools/1.87/reateSequenceDictionary.jar R=$ref O=ref/dmel-all-chromosome-r6.13.dict
+java -d64 -Xmx128g -jar /opt/apps/picard-tools/1.87/CreateSequenceDictionary.jar R=$ref O=ref/dmel-all-chromosome-r6.13.dict
 hisat2-build $ref $ref
 ```
 
