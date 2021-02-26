@@ -3,7 +3,7 @@
 #SBATCH -A SEYEDAM_LAB       ## account to charge 
 #SBATCH -p standard          ## partition/queue name
 #SBATCH --nodes=1            ## (-N) number of nodes to use
-#SBATCH --array=1-79         ## number of tasks to launch
+#SBATCH --array=1-100         ## number of tasks to launch
 #SBATCH --cpus-per-task=2    ## number of cores the job needs
 #SBATCH --output=rna_align-%J.out ## output log file
 #SBATCH --error=rna_align-%J.err ## error log file
@@ -19,7 +19,7 @@ module load hisat2/2.2.1
 
 
 inpath="/data/class/ecoevo283/erebboah/RNAseq/"
-file=$inpath"prefixes_tissueE.txt" # prefix file
+file=$inpath"prefixes_random.txt" # prefix file
 ref="/data/class/ecoevo283/erebboah/ref/dmel-all-chromosome-r6.13.fasta"
 prefix=`head -n $SLURM_ARRAY_TASK_ID  ${file} | tail -n 1`
 
