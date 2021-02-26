@@ -70,7 +70,7 @@ java -d64 -Xmx128g -jar /opt/apps/picard-tools/1.87/CreateSequenceDictionary.jar
 hisat2-build $ref $ref
 ```
 
-I made "prefix" files to use for the bash scripts with the provided code from Dr. Long's notes. For RNA-seq, I made a subsetted prefix file using `scripts/subset_rna.R`, containing 79 samples for the "E" tissue type.
+I made "prefix" files to use for the bash scripts with the provided code from Dr. Long's notes. For RNA-seq, I made a subsetted prefix file using `scripts/subset_rna.R`, containing 100 random samples.
 ```
 ls /data/class/ecoevo283/erebboah/DNAseq/data/*1.fq.gz | sed 's/_1.fq.gz//' > ../prefixes.txt
 ls /data/class/ecoevo283/erebboah/ATACseq/data/*R1.fq.gz | sed 's/_R1.fq.gz//' > ../prefixes.txt
@@ -117,7 +117,7 @@ ATACseq/
 RNAseq/
     rna_samples.txt
     prefixes.txt
-    prefixes_tissueE.txt
+    prefixes_random.txt
     data/
     mapped/
         x21001E0.sorted.bam
@@ -177,8 +177,39 @@ sbatch dna_gatk_step3v1.sh
 ```
 The output is `DNAseq/gatk/result.vcf.gz`. (And index `DNAseq/gatk/result.vcf.gz.tbi`.)
 
+We can also call SNPs by intervals to speed up the process. 
+
+Create 10Mb regions using the provided support script `fasta_generate_regions.py`
+```
+python3 fasta_generate_regions.py ../ref/dmel-all-chromosome-r6.13.fasta 10000000 > ../ref/my_regions_10Mb.txt
+```
+
+I ran the following script which uses the `--intervals` option in GATK with the `my_regions_10Mb.txt` file to output a `.vcf.gz` and index for each 10Mb region (1,881 regions total).
+```
+sbatch dna_gatk_step3v2.sh
+```
+
+The output is in `DNAseq/gatk/SNPbyregion`:
+```
+DNAseq/
+    dna_samples.txt
+    prefixes.txt
+    prefixes2.txt
+    data/
+    mapped/
+    gatk/
+       SNPbyregion/
+            ADL06.dedup.bam.bai
+            ADL06.dedup.bam.sbi
+            ADL06.dedup.metrics.txt
+            ADL06.g.vcf.gz
+            ADL06.g.vcf.gz.tbi
+            ...
+```
+
+
 ## RNA-seq counts matrix generation
-Following the format of the scripts provided for the DNA-seq pipeline, I wrote a bash script to count the number of reads per gene from the 79 sorted `BAM` files using `featureCounts` from the subreads package.
+Following the format of the scripts provided for the DNA-seq pipeline, I wrote a bash script to count the number of reads per gene from the 100 sorted `BAM` files using `featureCounts` from the subreads package.
 ```
 sbatch count_rna.sh
 ```
@@ -188,7 +219,7 @@ The output is in `RNAseq/counts`:
 RNAseq/
     rna_samples.txt
     prefixes.txt
-    prefixes_tissueE.txt
+    prefixes_random.txt
     data/
     mapped/
     counts/
@@ -201,7 +232,7 @@ RNAseq/
         ...
 ```
 
-For fun, I also concatenated the `*.counts.txt` files into a matrix with each sample as a column and each gene as a row (79 samples x 17,491 genes) using `scripts/make_rna_matrix.R`. The script loops though each sample using the `prefixes_tissueE.txt` file and joins each `.counts.txt` file by the FlyBase gene ID.
+I concatenated the `*.counts.txt` files into a matrix with each sample as a column and each gene as a row (100 samples x 17,491 genes) using `scripts/make_rna_matrix.R`. The script loops though each sample using the `prefixes_tissueE.txt` file and joins each `.counts.txt` file by the FlyBase gene ID.
 ```
 Rscript make_rna_matrix.R
 ```
