@@ -1,5 +1,5 @@
 ### R scripts 
-#### Week 6
+#### Week 6 (3)
 The following scripts create symlinks in the data folders for ATAC-seq, DNA-seq, and RNA-seq, making use of the  `system(paste0())` command:
 ```
 get_symlinks_atac.R
@@ -7,7 +7,7 @@ get_symlinks_dna.R
 get_symlinks_rna.R
 ```
 
-#### Week 7
+#### Week 7 (1)
 `subset_rna.R` is a simple script to subset the prefixes used in mapping the RNA-seq data to only 100 random samples (since there are so many samples to map).
 
 #### Week 8
@@ -31,4 +31,10 @@ The scripts also remove intermediate files such as `SAM` and unsorted `BAM` to s
 
 `dna_gatk_step3v1.sh` is the first method to call SNPs using `GenotypeGVCFs` from GATK v.4.1.9.0, resulting in a final `VCF` file.
 
+`dna_gatk_step3v2.sh` is the second method to call SNPs using `GenotypeGVCFs` from GATK v.4.1.9.0, resulting in 1,881 final `VCF` files that need to be merged using `cat`.
+
 `count_rna.sh` counts number of reads per gene across all 100 samples (another array job) using subread v2.0.1 in paired-end mode, with a minimum mapping score of 30.
+
+### Python scripts
+#### Week 8 
+`fasta_generate_regions.py` is an accessory script provided by Dr. Long that splits the genome into 10Mb regions for use in the interval-based method of SNP calling.
