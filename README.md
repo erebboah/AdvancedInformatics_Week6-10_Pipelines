@@ -51,7 +51,7 @@ I also ran `fastqc` on one raw data file from the DNA-seq experiment, `ADL06_1_1
 
 # Advanced Informatics Week 7 Exercises
 
-This week, we mapped the 3 datasets to the referene genome, using BWA for DNA-seq and ATAC-seq and HISAT2 for RNA-seq (a subset of samples).
+This week, we mapped the 3 datasets to the reference genome, using BWA for DNA-seq and ATAC-seq and HISAT2 for RNA-seq (a subset of samples).
 
 On an interactive node, I indexed the reference file here: `ref="/data/class/ecoevo283/erebboah/dmel-all-chromosome-r6.13.fasta"` for BWA, Picard, and HISAT2. 
 ```
@@ -126,3 +126,51 @@ RNAseq/
         x21012E0.sorted.bam.bai
         ...
 ```
+
+# Advanced Informatics Week 8 Exercises
+
+The goals for this week were to:
+1. work through the DNA-seq analysis pipeline to call SNPs using `GATK` and generate `VCF` files and 
+2. generate counts per gene for RNA-seq data using the `subread` package.
+
+## DNA-seq GATK pipeline
+I made another set of "prefix" files to use for the first step:
+```
+ls /data/class/ecoevo283/erebboah/DNAseq/data/*_1_1.fq.gz | sed 's/_1.fq.gz//' > ../prefixes2.txt
+```
+
+The prefix files are in the `DNAseq`, `ATACseq`, and `RNAseq` folders.
+I used the code provided in Dr. Long's notes to make 3(?) bash scripts. I ran the first script to merge sample replicates, remove duplicates, and call SNPs to generate one `GVCF` file per sample.
+```
+sbatch dna_gatk_step1.sh
+```
+
+The output is in `DNAseq/gatk`:
+```
+DNAseq/
+    dna_samples.txt
+    prefixes.txt
+    prefixes2.txt
+    mapped/
+    gatk/
+        ADL06.dedup.bam
+        ADL06.dedup.bam.bai
+        ADL06.dedup.bam.sbi
+        ADL06.dedup.metrics.txt
+        ADL06.g.vcf.gz
+        ...
+```
+
+Next, I ran the second script to combine the `GVCF` output per sample into 1 unified file:
+```
+sbatch dna_gatk_step2.sh
+```
+The output is in `DNAseq/gatk/allsample.g.vcf.gz`.
+
+Finally, the third script performs joint genotyping on the combined `GVCF` file to output a final `VCF`.
+```
+sbatch dna_gatk_step3.sh
+```
+The output is in `DNAseq/gatk/result.vcf.gz`.
+
+## RNA-seq counts matrix generation
