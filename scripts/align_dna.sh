@@ -29,6 +29,6 @@ samtools sort ${inpath}mapped/${prefix}.bam -o ${inpath}mapped/${prefix}.sort.ba
 rm ${inpath}mapped/${prefix}.bam
 
 # GATK likes readgroups
-java -jar  /opt/apps/picard-tools/1.87/AddOrReplaceReadGroups.jar I=${inpath}mapped/${prefix}.sort.bam O=${inpath}mapped/${prefix}.RG.bam SORT_ORDER=coordinate RGPL=illumina RGPU=D109LACXX RGLB=Lib1 RGID=${prefix} RGSM=${prefix} VALIDATION_STRINGENCY=LENIENT
+java -jar  /opt/apps/picard-tools/1.87/AddOrReplaceReadGroups.jar I=${inpath}mapped/${prefix}.sort.bam O=${inpath}mapped/${prefix}.RG.bam SORT_ORDER=coordinate RGPL=illumina RGPU=D109LACXX RGLB=Lib1 RGID=${prefix:0:5} RGSM=${prefix:0:5} VALIDATION_STRINGENCY=LENIENT
 samtools index ${inpath}mapped/${prefix}.RG.bam
 
