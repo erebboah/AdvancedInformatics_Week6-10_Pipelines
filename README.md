@@ -272,7 +272,8 @@ RNAseq/
 Next, I made plots with DESeq2, heatmap.2, and EnhancedVolcano, which conveniently takes in a DESeq2 object. The script makes 7 plots. An [MA plot](https://en.wikipedia.org/wiki/MA_plot) shows.....
 
 Gene dispersion estimates are....
-![dispersion plot](RNAseq/figures/dispEst.pdf)
+![dispersion plot](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/dispEst.png?raw=true)
+
 
 The histogram of p-values shows...
 
