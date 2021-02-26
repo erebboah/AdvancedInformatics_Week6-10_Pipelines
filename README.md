@@ -247,5 +247,40 @@ The goals for this week were to:
 2. visualize ATAC-seq using IGV (Integrative Genomics Viewer). 
 
 ## RNA-seq analysis
+First, I copied the metadata 
+
+I made DESeq2 objects using Dr. Long's provided code and the RNA-seq counts matrix. It takes a while to run because there are 100 samples when we log transform; the package recommends using `vst()` instead of `rlog()`. It filters out lowly expressed genes where the sum of the counts across all 100 samples is less than 10.
+
+```
+Rscript rna_deseq2_make_objects.R
+```
+
+The output is in `RNAseq/analysis`:
+```
+RNAseq/
+    rna_samples.txt
+    prefixes.txt
+    prefixes_random.txt
+    data/
+    mapped/
+    counts/
+    analysis/
+        dds.rda
+        rld.rda
+```
+
+Next, I made plots with DESeq2, heatmap.2, and EnhancedVolcano, which conveniently takes in a DESeq2 object. The script makes 7 plots. An [MA plot](https://en.wikipedia.org/wiki/MA_plot) shows.....
+
+Gene dispersion estimates are....
+
+The histogram of p-values shows...
+
+A heatmap of sample distributions, which are...
+
+Principal component analysis (PCA) of the data labeled by tissue type shows that the tissues are clearly separated by gene expression. 
+
+A heatmap of top variable gene expression again shows distinct gene expression in each tissue type. 
+
+A volcano plot of genes differentially expressed in tissue P (positive LFC) vs. tissue B (negative LFC) shows...
 
 ## ATAC-seq coverage on IGV
