@@ -1,5 +1,5 @@
 ### R scripts 
-#### Week 6 (3)
+#### Week 6
 The following scripts create symlinks in the data folders for ATAC-seq, DNA-seq, and RNA-seq, making use of the  `system(paste0())` command:
 ```
 get_symlinks_atac.R
@@ -7,7 +7,7 @@ get_symlinks_dna.R
 get_symlinks_rna.R
 ```
 
-#### Week 7 (1)
+#### Week 7
 `subset_rna.R` is a simple script to subset the prefixes used in mapping the RNA-seq data to only 100 random samples (since there are so many samples to map).
 
 #### Week 8
