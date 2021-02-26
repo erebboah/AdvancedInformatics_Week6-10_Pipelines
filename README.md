@@ -169,7 +169,7 @@ Next, I ran the second script to combine the `GVCF` output per sample into 1 uni
 ```
 sbatch dna_gatk_step2.sh
 ```
-The output is `DNAseq/gatk/allsample.g.vcf.gz`.
+The output is `DNAseq/gatk/allsample.g.vcf.gz`. (And index `DNAseq/gatk/allsample.g.vcf.gz.tbi`.)
 
 Finally, the third script performs joint genotyping on the combined `GVCF` file to output a final `VCF` using GATK `GenotypeGVCFs`.
 ```
