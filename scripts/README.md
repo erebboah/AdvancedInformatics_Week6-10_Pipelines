@@ -8,10 +8,10 @@ get_symlinks_rna.R
 ```
 
 #### Week 7
-`subset_rna.R` is a simple script to subset the prefixes used in mapping the RNA-seq data to only one tissue type (since there are so many samples to map).
+`subset_rna.R` is a simple script to subset the prefixes used in mapping the RNA-seq data to only 100 random samples (since there are so many samples to map).
 
 #### Week 8
-`make_rna_matrix.R` loops through each of the 79 `.counts.txt` files by their ID in `prefixes_tissueE.txt` and joins each sample by row, their FlyBase gene IDs. The matrix is formatted so that each column is the sample number (preceded by "x" as R does not like variables that start with a number), and each row is a FlyBase gene ID.
+`make_rna_matrix.R` loops through each of the 100 `.counts.txt` files by their ID in `prefixes_random.txt` and joins each sample by row, their FlyBase gene IDs. The matrix is formatted so that each column is the sample number (preceded by "x" as R does not like variables that start with a number), and each row is a FlyBase gene ID.
 
 ### Bash scripts
 #### Week 7
@@ -31,4 +31,4 @@ The scripts also remove intermediate files such as `SAM` and unsorted `BAM` to s
 
 `dna_gatk_step3v1.sh` is the first method to call SNPs using `GenotypeGVCFs` from GATK v.4.1.9.0, resulting in a final `VCF` file.
 
-`count_rna.sh` counts number of reads per gene using subread v2.0.1 in paired-end mode, with a minimum mapping score of 30.
+`count_rna.sh` counts number of reads per gene across all 100 samples (another array job) using subread v2.0.1 in paired-end mode, with a minimum mapping score of 30.
