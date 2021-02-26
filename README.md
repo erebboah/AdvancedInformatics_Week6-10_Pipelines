@@ -120,12 +120,12 @@ RNAseq/
     prefixes_random.txt
     data/
     mapped/
-        x21001E0.sorted.bam
-        x21001E0.sorted.bam.bai
-        x21002E0.sorted.bam
-        x21002E0.sorted.bam.bai
-        x21012E0.sorted.bam
-        x21012E0.sorted.bam.bai
+        x21001B0.sorted.bam
+        x21001B0.sorted.bam.bai
+        x21001B0.sorted.bam
+        x21001H0.sorted.bam.bai
+        x21001H0.sorted.bam
+        x21001H0.sorted.bam.bai
         ...
 ```
 
@@ -223,19 +223,19 @@ RNAseq/
     data/
     mapped/
     counts/
-        x21001E0.counts.txt
-        x21001E0.counts.txt.summary
-        x21002E0.counts.txt
-        x21002E0.counts.txt.summary
-        x21012E0.counts.txt
-        x21012E0.counts.txt.summary
+        x21001B0.counts.txt
+        x21001B0.counts.txt.summary
+        x21001H0.counts.txt
+        x21001H0.counts.txt.summary
+        x21001P0.counts.txt
+        x21001P0.counts.txt.summary
         ...
 ```
 
-I concatenated the `*.counts.txt` files into a matrix with each sample as a column and each gene as a row (100 samples x 17,491 genes) using `scripts/make_rna_matrix.R`. The script loops though each sample using the `prefixes_tissueE.txt` file and joins each `.counts.txt` file by the FlyBase gene ID.
+I concatenated the `*.counts.txt` files into a matrix with each sample as a column and each gene as a row (100 samples x 17,491 genes) using `scripts/make_rna_matrix.R`. The script loops though each sample using the `prefixes_random.txt` file and joins each `.counts.txt` file by the FlyBase gene ID.
 ```
 Rscript make_rna_matrix.R
 ```
-The output is `RNAseq/counts/counts_tissueE_flybaseIDs.tsv`.
+The output is `RNAseq/counts/counts_100samples_flybaseIDs.tsv`.
 
 For next week, I installed `DESeq2`, `GenomicFeatures`, `Rsamtools`, and `GenomicAlignments` in my R conda enviroment. Some packages installed easily with `install.packages()` and some like `DESeq2` I installed using [conda](https://anaconda.org/bioconda/bioconductor-deseq2), `conda install -c bioconda bioconductor-deseq2`.
