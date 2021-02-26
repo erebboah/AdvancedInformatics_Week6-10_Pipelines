@@ -31,4 +31,4 @@ The scripts also remove intermediate files such as `SAM` and unsorted `BAM` to s
 
 `dna_gatk_step3v1.sh` is the first method to call SNPs using `GenotypeGVCFs` from GATK v.4.1.9.0, resulting in a final `VCF` file.
 
-`count_rna.sh` counts number of reads per gene using subread v2.0.1 in paired-end mode, with a minimum mapping score of 30.
+`count_rna.sh` counts number of reads per gene across all 100 samples (another array job) using subread v2.0.1 in paired-end mode, with a minimum mapping score of 30.
