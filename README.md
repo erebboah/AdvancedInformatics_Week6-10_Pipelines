@@ -51,7 +51,7 @@ I also ran `fastqc` on one raw data file from the DNA-seq experiment, `ADL06_1_1
 
 # Advanced Informatics Week 7 Exercises
 
-This week, we mapped the 3 datasets to the reference genome, using BWA for DNA-seq and ATAC-seq and HISAT2 for RNA-seq (a subset of samples).
+This week, we mapped the 3 datasets to the reference genome.
 
 On an interactive node, I indexed the reference file here: `ref="/data/class/ecoevo283/erebboah/dmel-all-chromosome-r6.13.fasta"` for BWA, Picard, and HISAT2. 
 ```
@@ -70,15 +70,16 @@ java -d64 -Xmx128g -jar /opt/apps/picard-tools/1.87/CreateSequenceDictionary.jar
 hisat2-build $ref $ref
 ```
 
-I made "prefix" files to use for the bash scripts with the provided code from Dr. Long's notes (and a subsetted prefix file using an R script in the `scripts` folder):
+I made "prefix" files to use for the bash scripts with the provided code from Dr. Long's notes. For RNA-seq, I made a subsetted prefix file using `scripts/subset_rna.R`, containing 79 samples for the "E" tissue type.
 ```
 ls /data/class/ecoevo283/erebboah/DNAseq/data/*1.fq.gz | sed 's/_1.fq.gz//' > ../prefixes.txt
 ls /data/class/ecoevo283/erebboah/ATACseq/data/*R1.fq.gz | sed 's/_R1.fq.gz//' > ../prefixes.txt
 ls /data/class/ecoevo283/erebboah/RNAseq/data/*R1.fq.gz | sed 's/_R1.fq.gz//' > ../prefixes.txt
+Rscript subset_rna.R
 ```
 The prefix files are in the `DNAseq`, `ATACseq`, and `RNAseq` folders.
 
-The bash scripts that made use of the prefix files are called `align_dna.sh`, `align_atac.sh`, and `align_rna.sh`, and I ran them using:
+The bash scripts that made use of the prefix files are called `align_dna.sh`, `align_atac.sh`, and `align_rna.sh`. DNA-seq data is aligned using BWA followed by generation of read groups using Picard. ATAC-seq data data is simply aligned using BWA. RNA-seq data is aligned using HISAT2 and the resulting `SAM` file is converted to `BAM` and sorted. I ran them with the following commands:
 ```
 sbatch align_dna.sh
 sbatch align_atac.sh
@@ -92,6 +93,7 @@ The output is in each subfolder named `mapped`:
 DNAseq/
     dna_samples.txt
     prefixes.txt
+    data/
     mapped/
         ADL06_1.RG.bam
         ADL06_1.RG.bam.bai
@@ -130,17 +132,17 @@ RNAseq/
 # Advanced Informatics Week 8 Exercises
 
 The goals for this week were to:
-1. work through the DNA-seq analysis pipeline to call SNPs using `GATK` and generate `VCF` files and 
-2. generate counts per gene for RNA-seq data using the `subread` package.
+1. work through the DNA-seq analysis pipeline to call SNPs using GATK and generate `VCF` files and 
+2. generate counts per gene for RNA-seq data using the subread package.
 
 ## DNA-seq GATK pipeline
-I made another set of "prefix" files to use for the first step:
+I made another set of "prefix" files to use for the first step, which is now on a per-sample basis with merged replicates, thus 4 samples: `ADL06`, `ADL09`, `ADL10`, and `ADL14`.
 ```
 ls /data/class/ecoevo283/erebboah/DNAseq/data/*_1_1.fq.gz | sed 's/_1.fq.gz//' > ../prefixes2.txt
 ```
 
-The prefix files are in the `DNAseq`, `ATACseq`, and `RNAseq` folders.
-I used the code provided in Dr. Long's notes to make 3(?) bash scripts. I ran the first script to merge sample replicates, remove duplicates, and call SNPs to generate one `GVCF` file per sample.
+The prefix file is in the `DNAseq` folder.
+I used the code provided in Dr. Long's notes to make 3 bash scripts. I ran the first script to merge sample replicates with Picard `MergeSamFiles`, remove duplicates with GATK `MarkDuplicatesSpark`, and call SNPs with GATK `HaplotypeCaller` to generate one `GVCF` file per sample.
 ```
 sbatch dna_gatk_step1.sh
 ```
@@ -151,6 +153,7 @@ DNAseq/
     dna_samples.txt
     prefixes.txt
     prefixes2.txt
+    data/
     mapped/
     gatk/
         ADL06.dedup.bam
@@ -158,19 +161,44 @@ DNAseq/
         ADL06.dedup.bam.sbi
         ADL06.dedup.metrics.txt
         ADL06.g.vcf.gz
+        ADL06.g.vcf.gz.tbi
         ...
 ```
 
-Next, I ran the second script to combine the `GVCF` output per sample into 1 unified file:
+Next, I ran the second script to combine the `GVCF` output per sample into 1 unified file using GATK `CombineGVCFs`:
 ```
 sbatch dna_gatk_step2.sh
 ```
-The output is in `DNAseq/gatk/allsample.g.vcf.gz`.
+The output is `DNAseq/gatk/allsample.g.vcf.gz`.
 
-Finally, the third script performs joint genotyping on the combined `GVCF` file to output a final `VCF`.
+Finally, the third script performs joint genotyping on the combined `GVCF` file to output a final `VCF` using GATK `GenotypeGVCFs`.
 ```
 sbatch dna_gatk_step3.sh
 ```
-The output is in `DNAseq/gatk/result.vcf.gz`.
+The output is `DNAseq/gatk/result.vcf.gz`.
 
 ## RNA-seq counts matrix generation
+Following the format of the scripts provided for the DNA-seq pipeline, I wrote a bash script to count the number of reads per gene from the 79 sorted `BAM` files using `featureCounts` from the subreads package.
+```
+sbatch count_rna.sh
+```
+
+The output is in `RNAseq/counts`:
+```
+RNAseq/
+    rna_samples.txt
+    prefixes.txt
+    prefixes_tissueE.txt
+    data/
+    mapped/
+    counts/
+        x21001E0.counts.txt
+        x21001E0.counts.txt.summary
+        x21002E0.counts.txt
+        x21002E0.counts.txt.summary
+        x21012E0.counts.txt
+        x21012E0.counts.txt.summary
+        ...
+```
+
+For next week, I installed `DESeq2`, `GenomicFeatures`, `Rsamtools`, and `GenomicAlignments` in my R conda enviroment. Some packages installed easily with `install.packages()` and some like `DESeq2` I installed using [conda](https://anaconda.org/bioconda/bioconductor-deseq2), `conda install -c bioconda bioconductor-deseq2`.
