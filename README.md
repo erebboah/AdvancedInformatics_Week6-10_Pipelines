@@ -173,9 +173,9 @@ The output is `DNAseq/gatk/allsample.g.vcf.gz`. (And index `DNAseq/gatk/allsampl
 
 Finally, the third script performs joint genotyping on the combined `GVCF` file to output a final `VCF` using GATK `GenotypeGVCFs`.
 ```
-sbatch dna_gatk_step3.sh
+sbatch dna_gatk_step3v1.sh
 ```
-The output is `DNAseq/gatk/result.vcf.gz`.
+The output is `DNAseq/gatk/result.vcf.gz`. (And index `DNAseq/gatk/result.vcf.gz.tbi`.)
 
 ## RNA-seq counts matrix generation
 Following the format of the scripts provided for the DNA-seq pipeline, I wrote a bash script to count the number of reads per gene from the 79 sorted `BAM` files using `featureCounts` from the subreads package.
