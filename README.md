@@ -239,3 +239,13 @@ Rscript make_rna_matrix.R
 The output is `RNAseq/counts/counts_100samples_flybaseIDs.tsv`.
 
 For next week, I installed `DESeq2`, `GenomicFeatures`, `Rsamtools`, and `GenomicAlignments` in my R conda enviroment. Some packages installed easily with `install.packages()` and some like `DESeq2` I installed using [conda](https://anaconda.org/bioconda/bioconductor-deseq2), `conda install -c bioconda bioconductor-deseq2`.
+
+# Advanced Informatics Week 9 Exercises
+
+The goals for this week were to:
+1. analyze RNA-seq results and  
+2. visualize ATAC-seq using IGV (Integrative Genomics Viewer). 
+
+## RNA-seq analysis
+
+## ATAC-seq coverage on IGV
