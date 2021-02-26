@@ -201,4 +201,10 @@ RNAseq/
         ...
 ```
 
+For fun, I also concatenated the `*.counts.txt` files into a matrix with each sample as a column and each gene as a row (79 samples x 17,491 genes) using `scripts/make_rna_matrix.R`. The script loops though each sample using the `prefixes_tissueE.txt` file and joins each `.counts.txt` file by the FlyBase gene ID.
+```
+Rscript make_rna_matrix.R
+```
+The output is `RNAseq/counts/counts_tissueE_flybaseIDs.tsv`.
+
 For next week, I installed `DESeq2`, `GenomicFeatures`, `Rsamtools`, and `GenomicAlignments` in my R conda enviroment. Some packages installed easily with `install.packages()` and some like `DESeq2` I installed using [conda](https://anaconda.org/bioconda/bioconductor-deseq2), `conda install -c bioconda bioconductor-deseq2`.
