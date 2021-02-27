@@ -273,18 +273,23 @@ Next, I made plots with DESeq2, heatmap.2, and EnhancedVolcano, which convenient
 ![ma plot](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/plotMA.png?raw=true)
 
 Gene dispersion estimates are....
+
 ![dispersion plot](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/dispEst.png?raw=true)
 
 The histogram of p-values shows...
+
 ![histogram](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/hist.png?raw=true)
 
 A heatmap of sample distributions, which are...
+
 ![heatmap](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/heatmap.png?raw=true)
 
 Principal component analysis (PCA) of the data labeled by tissue type shows that the tissues are clearly separated by gene expression. 
+
 ![pca](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/pca.png?raw=true)
 
 A heatmap of top variable gene expression again shows distinct gene expression in each tissue type. 
+
 ![heatmap top var](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/heatmap_topvargenes.png?raw=true)
 
 A volcano plot of genes differentially expressed in tissue P (positive LFC) vs. tissue B (negative LFC) shows...
