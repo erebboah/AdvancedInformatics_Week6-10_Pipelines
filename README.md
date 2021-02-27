@@ -295,9 +295,8 @@ RNAseq/
         volcano_tissuePvstissueB.png
 ```
 
-
-
 An [MA plot](https://en.wikipedia.org/wiki/MA_plot) shows.....
+
 ![ma plot](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/plotMA.png?raw=true)
 
 Gene dispersion estimates are....
