@@ -269,7 +269,35 @@ RNAseq/
         rld.rda
 ```
 
-Next, I made plots with DESeq2, heatmap.2, and EnhancedVolcano, which conveniently takes in a DESeq2 object. The script makes 7 plots. An [MA plot](https://en.wikipedia.org/wiki/MA_plot) shows.....
+Next, I made plots with DESeq2, heatmap.2, and EnhancedVolcano, which conveniently takes in a DESeq2 object. The script makes 7 plots. 
+```
+Rscript rna_deseq2_plots.R
+```
+
+
+The output is in `RNAseq/figures`:
+```
+RNAseq/
+    rna_samples.txt
+    prefixes.txt
+    prefixes_random.txt
+    data/
+    mapped/
+    counts/
+    analysis/
+    figures/
+        dispEst.png
+        heatmap.png
+        heatmap_topvargenes.png
+        hist.png
+        pca.png
+        plotMA.png
+        volcano_tissuePvstissueB.png
+```
+
+
+
+An [MA plot](https://en.wikipedia.org/wiki/MA_plot) shows.....
 ![ma plot](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/plotMA.png?raw=true)
 
 Gene dispersion estimates are....
