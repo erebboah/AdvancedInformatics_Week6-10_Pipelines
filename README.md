@@ -288,6 +288,6 @@ A heatmap of top variable gene expression again shows distinct gene expression i
 ![heatmap top var](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/heatmap_topvargenes.png?raw=true)
 
 A volcano plot of genes differentially expressed in tissue P (positive LFC) vs. tissue B (negative LFC) shows...
-![volcano](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/heatmap_topvargenes.png?raw=true)
+![volcano](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/volcano_tissuePvstissueB.png?raw=true)
 
 ## ATAC-seq coverage on IGV
