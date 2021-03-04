@@ -332,6 +332,7 @@ RNAseq/
         volcano_tissuePvstissueB.png
 ```
 
+
 The x axis of the [MA plot](https://en.wikipedia.org/wiki/MA_plot) is the average expression over all samples and the y axis the log2 fold change between P and B (last variable comparison by default).
 It shows that most significantly differentially expressed (DE) genes have medium expression values. 
 
