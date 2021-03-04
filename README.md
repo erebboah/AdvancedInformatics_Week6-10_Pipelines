@@ -53,7 +53,7 @@ I also ran `fastqc` on one raw data file from the DNA-seq experiment, `ADL06_1_1
 
 This week, we mapped the 3 datasets to the reference genome.
 
-On an interactive node, I indexed the reference file here: `ref="/data/class/ecoevo283/erebboah/dmel-all-chromosome-r6.13.fasta"` for BWA, Picard, and HISAT2. 
+On an interactive node, I indexed the reference file here: `ref="/data/class/ecoevo283/erebboah/ref/dmel-all-chromosome-r6.13.fasta"` for BWA, Picard, and HISAT2. 
 ```
 module load bwa/0.7.8
 module load samtools/1.10
@@ -322,4 +322,49 @@ A heatmap of top variable gene expression again shows distinct gene expression i
 A volcano plot of genes differentially expressed in tissue P (positive LFC) vs. tissue B (negative LFC) shows...
 ![volcano](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/volcano_tissuePvstissueB.png?raw=true)
 
-## ATAC-seq coverage on IGV
+## ATAC-seq coverage on UCSC
+### Generate bigwig files
+I wrote a bash script to convert `bam` to `bedgraph` using `genomeCoverageBed`. Using `-scale` the bedgraphs can be scaled by read depth. The number of reads can be determined by `samtools view -c -F 4` where [4](https://www.samformat.info/sam-format-flag) indicates unmapped reads and [F](http://www.htslib.org/doc/samtools-view.html) indicates to count all reads EXCEPT those with the flag. Samtools is used to pipe the bam file into the UCSC tool. There is no need for a reference when running `genomeCoverageBed` from a `bam` file. 
+
+```
+Nreads=`samtools view -c -F 4 ${inpath}mapped/${prefix}.sort.bam`
+Scale=`echo "1.0/($Nreads/1000000)" | bc -l`
+
+samtools view -b ${inpath}mapped/${prefix}.sort.bam | genomeCoverageBed -ibam - -bg -scale $Scale > ${inpath}coverage/${prefix}.coverage
+```
+
+Next I sorted the `bedgraph` by `sortBed` before running `bedGraphToBigWig` to make the final `bigwig` file. 
+
+To make a genome for `bedGraphToBigWig`:
+```
+cut -f 1,2 /data/class/ecoevo283/erebboah/ref/dmel-all-chromosome-r6.13.fasta.fai > /data/class/ecoevo283/erebboah/ref/dm6.chrom.sizes
+```
+
+Finally I remove the unsorted `bedgraph` files to save space.
+
+To run the script:
+```
+sbatch bigwig_atac.sh
+```
+
+The output is in `ATACseq/coverage`:
+```
+ATACseq/
+    atac_samples.txt
+    prefixes.txt
+    data/
+    mapped/
+    coverage/
+        P004.bw
+        P004.sort.coverage
+        P005.bw
+        P005.sort.coverage
+        P006.bw
+        P006.sort.coverage
+```
+### Upload to UCSC
+I used our lab's [website](http://crick.bio.uci.edu/erebboah/class/) to host the `bigwig` files.
+```
+scp *.bw erebboah@crick.bio.uci.edu:/var/www/html/erebboah/class
+```
+
