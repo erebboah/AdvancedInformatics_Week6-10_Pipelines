@@ -375,4 +375,4 @@ A screenshot of a random section of the Drosophilia genome (chr2L:1,030,879-1,20
 ![UCSC](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/ATACseq/figures/chr2L-1030879-1204340.png?raw=true)
 
 # Advanced Informatics Week 10 Project
-The goal of the final week was to incorporate what we have learned throughout the course into a final project.
+The goal of the last week was to incorporate what we have learned throughout the course into a final project.
