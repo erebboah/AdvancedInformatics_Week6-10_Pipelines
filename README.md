@@ -244,13 +244,49 @@ For next week, I installed `DESeq2`, `GenomicFeatures`, `Rsamtools`, and `Genomi
 # Advanced Informatics Week 9 Exercises
 
 The goals for this week were to:
-1. analyze RNA-seq results and  
-2. visualize ATAC-seq using IGV (Integrative Genomics Viewer). 
+1. analyze RNA-seq,
+2. make some plots of the RNA-seq results, and
+3. visualize ATAC-seq using IGV (Integrative Genomics Viewer). 
 
 ## RNA-seq analysis
-First, I copied the metadata 
+First, I copied the metadata to my directory, `RNAseq/RNAseq384_SampleCoding.txt`.
 
-I made DESeq2 objects using Dr. Long's provided code and the RNA-seq counts matrix. It takes a while to run because there are 100 samples when we log transform; the package recommends using `vst()` instead of `rlog()`. It filters out lowly expressed genes where the sum of the counts across all 100 samples is less than 10.
+I made DESeq2 objects using Dr. Long's provided code. 
+
+We are roughly following section [2.4.3 Starting from count tables on page 10](https://bioc.ism.ac.jp/packages/2.14/bioc/vignettes/DESeq2/inst/doc/beginner.pdf). 
+The `countdata` is `RNAseq/counts/counts_100samples_flybaseIDs.tsv` and the `coldata` (metadata) is `RNAseq/RNAseq384_SampleCoding.txt`, subsetted to match the 100 samples I processed in order of the columns in `countdata`. 
+I used `design=~TissueCode`, which tells DESeq2 that the experimental design is simply based on different tissues. There can be complicated designs with multiple experimental variabes. 
+
+Next the script filters out lowly expressed genes where the sum of the counts across all 100 samples is less than 10, before running DESeq2 in a single command: `dds <- DESeq(dds)`.
+
+DESeq2 does the following:
+```
+estimating size factors
+estimating dispersions
+gene-wise dispersion estimates
+mean-dispersion relationship
+final dispersion estimates
+fitting model and testing
+-- replacing outliers and refitting for 9 genes
+-- DESeq argument 'minReplicatesForReplace' = 7 
+-- original counts are preserved in counts(dds)
+estimating dispersions
+fitting model and testing
+```
+
+Inspecting the result with `results(dds)` shows log2 fold change, p value, and other useful plotting parameters the last variable in the design formula. 
+Specific variables can be called by `results(dds,contrast = c("TissueCode","P","E"))`, for example to compare tissues P and E. 
+
+Then the data was rlog-transformed, which returns a SummarizedExperiment object containing the transformed values in the assay slot.
+
+```
+rld = rlog( dds )
+mydata = assay(rld)
+```
+
+This command took a while; the package recommends using `vst()` instead of `rlog()` for a large number of samples.
+
+To run the script:
 
 ```
 Rscript rna_deseq2_make_objects.R
@@ -270,7 +306,8 @@ RNAseq/
         rld.rda
 ```
 
-Next, I made plots with DESeq2, heatmap.2, and EnhancedVolcano, which conveniently takes in a DESeq2 object. The script makes 7 plots. 
+## RNA-seq analysis results plotting
+Next, I made plots with DESeq2, heatmap.2, and EnhancedVolcano, which conveniently takes in a DESeq2 SummarizedExperiment object. The script makes 7 plots. 
 ```
 Rscript rna_deseq2_plots.R
 ```
