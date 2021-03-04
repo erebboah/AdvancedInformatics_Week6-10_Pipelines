@@ -199,11 +199,12 @@ DNAseq/
     mapped/
     gatk/
        SNPbyregion/
-            ADL06.dedup.bam.bai
-            ADL06.dedup.bam.sbi
-            ADL06.dedup.metrics.txt
-            ADL06.g.vcf.gz
-            ADL06.g.vcf.gz.tbi
+            211000022278031:1-1021.vcf.gz
+            211000022278031:1-1021.vcf.gz.tbi
+            211000022278032:1-6936.vcf.gz
+            211000022278032:1-6936.vcf.gz.tbi
+            211000022278033:1-1143.vcf.gz
+            211000022278033:1-1143.vcf.gz.tbi
             ...
 ```
 
@@ -273,7 +274,6 @@ Next, I made plots with DESeq2, heatmap.2, and EnhancedVolcano, which convenient
 ```
 Rscript rna_deseq2_plots.R
 ```
-
 
 The output is in `RNAseq/figures`:
 ```
