@@ -361,6 +361,7 @@ ATACseq/
         P005.sort.coverage
         P006.bw
         P006.sort.coverage
+        ...
 ```
 ### Upload to UCSC genome browser
 I used our lab's [website](http://crick.bio.uci.edu/erebboah/class/) to host the `bigwig` files.
