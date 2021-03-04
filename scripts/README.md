@@ -13,6 +13,9 @@ get_symlinks_rna.R
 #### Week 8
 `make_rna_matrix.R` loops through each of the 100 `.counts.txt` files by their ID in `prefixes_random.txt` and joins each sample by row, their FlyBase gene IDs. The matrix is formatted so that each column is the sample number (preceded by "x" as R does not like variables that start with a number), and each row is a FlyBase gene ID.
 
+#### Week 9
+`rna_deseq2_make_objects.R` and `rna_deseq2_plots.R` make DESeq2 objects and plot the results, respectively.
+
 ### Bash scripts
 #### Week 7
 `align_atac.sh` and `align_dna.sh` align ATAC-seq and DNA-seq using BWA v.0.7.0 and for DNA-seq, add `RG` (read group) tags using Picard 1.87 (and Java 1.8.0) to use in GATK. Importantly, the RG tag must be the same for all replicates of a sample or GATK will fail at the `HaplotypeCaller` command because it thinks the merged `BAM` is made up of multiple unique samples instead of replicates. I used the same prefix file but added the RG with `prefix:0:5` which subsets the sample name to the first 5 characters, removing the `_1`, `_2`, `_3`.
@@ -34,6 +37,9 @@ The scripts also remove intermediate files such as `SAM` and unsorted `BAM` to s
 `dna_gatk_step3v2.sh` is the second method to call SNPs using `GenotypeGVCFs` from GATK v.4.1.9.0, resulting in 1,881 final `VCF` files that need to be merged using `cat`.
 
 `count_rna.sh` counts number of reads per gene across all 100 samples (another array job) using subread v2.0.1 in paired-end mode, with a minimum mapping score of 30.
+
+#### Week 9
+`bigwig_atac.sh` makes `bigwig` files from the mapped ATAC-seq reads.
 
 ### Python scripts
 #### Week 8 
