@@ -253,7 +253,7 @@ First, I copied the metadata to my directory, `RNAseq/RNAseq384_SampleCoding.txt
 
 I made DESeq2 objects using Dr. Long's provided code. 
 
-We are roughly following section [2.4.3 Starting from count tables on page 10](https://bioc.ism.ac.jp/packages/2.14/bioc/vignettes/DESeq2/inst/doc/beginner.pdf). 
+We are roughly following section 2.4.3, Starting from count tables on [page 10](https://bioc.ism.ac.jp/packages/2.14/bioc/vignettes/DESeq2/inst/doc/beginner.pdf). 
 The `countdata` is `RNAseq/counts/counts_100samples_flybaseIDs.tsv` and the `coldata` (metadata) is `RNAseq/RNAseq384_SampleCoding.txt`, subsetted to match the 100 samples I processed in order of the columns in `countdata`. 
 I used `design=~TissueCode`, which tells DESeq2 that the experimental design is simply based on different tissues. There can be complicated designs with multiple experimental variabes. 
 
@@ -332,19 +332,20 @@ RNAseq/
         volcano_tissuePvstissueB.png
 ```
 
-An [MA plot](https://en.wikipedia.org/wiki/MA_plot) shows.....
+The x axis of the [MA plot](https://en.wikipedia.org/wiki/MA_plot) is the average expression over all samples and the y axis the log2 fold change between P and B (last variable comparison by default).
+It shows that most significantly differentially expressed (DE) genes have medium expression values. 
 
 ![ma plot](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/plotMA.png?raw=true)
 
-Gene dispersion estimates are....
+The gene dispersion estimate plot shows how the dispersion estimates for the genes (black dots) will be shrunk towards the red trend line. 
 
 ![dispersion plot](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/dispEst.png?raw=true)
 
-The histogram of p-values shows...
+The histogram of p-values shows that most genes returned by the test for differential expression are significantly differentially expressed.
 
 ![histogram](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/hist.png?raw=true)
 
-A heatmap of sample distributions, which are...
+A heatmap of the [distance matrix](https://en.wikipedia.org/wiki/Distance_matrix) shows a clear distinction between tissues.
 
 ![heatmap](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/heatmap.png?raw=true)
 
@@ -356,7 +357,7 @@ A heatmap of top variable gene expression again shows distinct gene expression i
 
 ![heatmap top var](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/heatmap_topvargenes.png?raw=true)
 
-A volcano plot of genes differentially expressed in tissue P (positive LFC) vs. tissue B (negative LFC) shows...
+A volcano plot of genes differentially expressed in tissue P (positive LFC) vs. tissue B (negative LFC) shows that many are significant by both p-value and fold change (default 1e-05 and 1, respectively).
 ![volcano](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/RNAseq/figures/volcano_tissuePvstissueB.png?raw=true)
 
 ## ATAC-seq coverage on UCSC
