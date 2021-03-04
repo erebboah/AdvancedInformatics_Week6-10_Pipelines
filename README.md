@@ -362,9 +362,14 @@ ATACseq/
         P006.bw
         P006.sort.coverage
 ```
-### Upload to UCSC
+### Upload to UCSC genome browser
 I used our lab's [website](http://crick.bio.uci.edu/erebboah/class/) to host the `bigwig` files.
 ```
 scp *.bw erebboah@crick.bio.uci.edu:/var/www/html/erebboah/class
 ```
+
+I added 25 ATAC-seq files via the [Upload custom tracks](https://genome.ucsc.edu/cgi-bin/hgCustom) tool on UCSC. The session can be shared with others via this [link](https://genome.ucsc.edu/s/erebboah/atac_coverage_dm6).
+
+A screenshot of a random section of the Drosophilia genome (chr2L:1,030,879-1,204,340) with the ATAC-seq `bigwig` tracks:
+![UCSC](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/ATACseq/figures/chr2L-1030879-1204340.png?raw=true)
 
