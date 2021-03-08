@@ -413,6 +413,3 @@ I added 25 ATAC-seq files via the [Upload custom tracks](https://genome.ucsc.edu
 A screenshot of a random section of the Drosophila genome (chr2L:1,030,879-1,204,340) with the ATAC-seq `bigwig` tracks can be found at `ATACseq/figures/chr2L-1030879-1204340.png`:
 
 ![UCSC](https://github.com/erebboah/AdvancedInformatics_Week6-10_Pipelines/blob/main/ATACseq/figures/chr2L-1030879-1204340.png?raw=true)
-
-# Advanced Informatics Week 10 Project
-The goal of the last week was to incorporate what we have learned throughout the course into a final project.
