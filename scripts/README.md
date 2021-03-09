@@ -18,7 +18,7 @@ get_symlinks_rna.R
 
 ### Bash scripts
 #### Week 7
-`align_atac.sh` and `align_dna.sh` align ATAC-seq and DNA-seq using BWA v.0.7.0 and for DNA-seq, add `RG` (read group) tags using Picard 1.87 (and Java 1.8.0) to use in GATK. Importantly, the RG tag must be the same for all replicates of a sample or GATK will fail at the `HaplotypeCaller` command because it thinks the merged `BAM` is made up of multiple unique samples instead of replicates. I used the same prefix file but added the RG with `prefix:0:5` which subsets the sample name to the first 5 characters, removing the `_1`, `_2`, `_3`.
+`align_atac.sh` and `align_dna.sh` align ATAC-seq and DNA-seq using BWA v.0.7.0 and for DNA-seq, add `RG` (read group) tags using Picard 1.87 (and Java 1.8.0) to use in GATK. Importantly, the RG tag must be the same for all replicates of a sample or GATK will fail at the `HaplotypeCaller` command because it thinks the merged `BAM` is made up of multiple unique samples instead of replicates. I used the same prefix file but added the RG with `prefix:0:5` which subsets the sample name to the first 6 characters, removing the `1`, `2`, `3`.
 
 The `fastq` reads become `SAM` files when aligned, which are converted to `BAM` files and sorted using samtools 1.10 for downstream applications. 
 The readgroups `BAM` file is also indexed with samtools.
