@@ -210,6 +210,7 @@ DNAseq/
 
 The `vcf` files can't be concatenated by `cat` due to their headers, so `bcftools` can be used to merge:
 ```
+module load bcftools
 bcftools concat -o SNPbyregion/total_chroms.vcf SNPbyregion/*.vcf.gz
 ```
 
