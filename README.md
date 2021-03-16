@@ -208,6 +208,10 @@ DNAseq/
             ...
 ```
 
+The `vcf` files can't be concatenated by `cat` due to their headers, so `bcftools` can be used to merge:
+```
+bcftools concat -o SNPbyregion/total_chroms.vcf SNPbyregion/*.vcf.gz
+```
 
 ## RNA-seq counts matrix generation
 Following the format of the scripts provided for the DNA-seq pipeline, I wrote a bash script to count the number of reads per gene from the 100 sorted `BAM` files using `featureCounts` from the subreads package.
